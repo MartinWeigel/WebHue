@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebHue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Helvetica", sans-serif;
+            display: flex;
+            flex-flow: row;
+            flex-wrap: wrap;
+        }
+        section {
+            padding: 0.5rem 1rem;
+        }
+        h1 {
+            font-family: "Segoe UI", "San Francisco", "Helvetica Neue", Roboto, sans-serif;
+            font-weight: 400;
+            margin: 0.5rem 0rem;
+        }
+        a {
+            display: block;
+            color: white;
+            width: 15rem;
+            text-decoration: none;
+            background-color: #005f8a;
+            padding: 1rem;
+            padding-bottom: 0.8rem;
+            margin-bottom: 2px;
+        }
+        a:hover {
+            color: black;
+            background-color: orange;
+        }
+        @media screen and (max-width: 800px) {
+            section, a { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    {% for group_id, group_data in groups.items() %}
+    <section>
+        <h1>{{ group_data.name }}</h1>
+        <a href="/off/{{ group_id }}" style="background-color: black; color: white;">Lights off</a>
+        {% if group_data.scenes %}
+            {% for scene_id, scene_data in group_data.scenes.items() %}
+                <a href="/scene/{{ scene_id }}">{{ scene_data.name }}</a>
+            {% endfor %}
+        {% endif %}
+    </section>
+    {% endfor %}
+</body>
+</html>
